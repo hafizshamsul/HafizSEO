@@ -1,8 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "lXc04q5FrOTsy+M0a2eKHtPwyeowiIPKFD6rdT47DYd6JHowVQ7oTv3Sp9SBSG82qqLXD+VEDMI3+JhVYxFOxA==",
+  "dgSpecHash": "lwbIWTLPd5pbzat5wDr0F3IW/qVgSWfjFypP+ZHsRXdRdl5G07melXkCBHEpk8Z7RJ12d8pNmvGnNP9kqM3ykg==",
   "success": true,
   "projectFilePath": "C:\\Users\\User\\source\\repos\\HafizSEO\\HafizSEO\\HafizSEO.csproj",
-  "expectedPackageFiles": [],
+  "expectedPackageFiles": [
+    "C:\\Users\\User\\.nuget\\packages\\htmlagilitypack\\1.11.34\\htmlagilitypack.1.11.34.nupkg.sha512"
+  ],
   "logs": []
 }

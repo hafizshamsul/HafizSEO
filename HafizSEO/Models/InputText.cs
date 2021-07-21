@@ -15,7 +15,7 @@ namespace HafizSEO.Models
 
         public bool checkWord { get; set; } = true;
 
-        public Dictionary<string, int> occerenceLinks { get; set; } = new Dictionary<string, int>();
+        public Dictionary<string, int> occurenceLinks { get; set; } = new Dictionary<string, int>();
 
         public Dictionary<string, int> occurenceMetas { get; set; } = new Dictionary<string, int>();
 
