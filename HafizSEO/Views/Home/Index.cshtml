@@ -2,7 +2,129 @@
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+@model InputText
+
+<style>
+    .table {
+        word-break: break-all;
+    }
+
+    small {
+        font-size: 65%;
+    }
+</style>
+
+<div style="text-align: center">
+    <object type="image/svg+xml" data="~/images/logoworld.svg" style="width: 250px; margin: 30px 0"> </object>
 </div>
+
+<form>
+    <div class="text-center">
+        <h4>Find words and external links in a click of a button.</h4>
+        <div style="margin: 30px 0">
+            <div style="margin-bottom: 20px">
+                <input asp-for="Text" class="form-control form-control-lg" placeholder="Enter a URL" />
+                <span asp-validation-for="@Model.Text" class="text-danger"></span>
+            </div>
+
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox" id="inlineCheckbox1" asp-for="checkWord" value="option1">
+                <label class="form-check-label" for="inlineCheckbox1">English Text</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox" id="inlineCheckbox2" asp-for="checkLink" value="option2">
+                <label class="form-check-label" for="inlineCheckbox2">URL Adrees</label>
+            </div>
+
+            <div style="margin-top: 20px">
+                <div class="d-grid gap-2 col-6 mx-auto">
+                    <input class="btn btn-danger" type="submit" value="Analyze" />
+                </div>
+            </div>
+        </div>
+        @if ((Model.occurencePages.Count > 0) || Model.occurenceMetas.Count > 0 || Model.occurenceLinks.Count > 0)
+        {
+            <div class="row mt-5">
+                @if (Model.checkWord)
+                {
+                    <div class="col">
+                        <h5>Words in Page</h5>
+                        <table id="pageOccurTable" class="table">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Word</th>
+                                    <th scope="col">Number of Occurrence</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var occur in Model.occurencePages.OrderByDescending(x => x.Value))
+                                {
+                                    <tr>
+                                        <td>@occur.Key</td>
+                                        <td>@occur.Value</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="col">
+                        <h5>Words in Meta Tag</h5>
+                        <table id="metaOccurTable" class="table">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Word</th>
+                                    <th scope="col">Number of Occurrence</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var occur in Model.occurenceMetas.OrderByDescending(x => x.Value))
+                                {
+                                    <tr>
+                                        <td>@occur.Key</td>
+                                        <td>@occur.Value</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                }
+                @if (Model.checkWord && Model.checkLink)
+                {
+                    <hr class="w-100 mt-5 mb-5" />
+                }
+                @if (Model.checkLink)
+                {
+                    <div class="col">
+                        <h5><u>Links in page</u></h5>
+                        <table id="linkOccurTable" class="table">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Link</th>
+                                    <th scope="col" style="word-break:normal;">Number of Occurrence</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var occur in Model.occurenceLinks.OrderByDescending(x => x.Value))
+                                {
+                                    <tr>
+                                        <td class="text-left">@occur.Key</td>
+                                        <td>@occur.Value</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                }
+            </div>
+        }
+    </div>
+</form>
+
+@section scripts{
+    <script>
+$(document).ready(function () {
+        $('#pageOccurTable').DataTable();
+        $('#metaOccurTable').DataTable();
+        $('#linkOccurTable').DataTable();
+    });</script>
+}
