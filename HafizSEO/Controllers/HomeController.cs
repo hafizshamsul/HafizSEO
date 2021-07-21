@@ -82,7 +82,7 @@ namespace HafizSEO.Controllers
         {
             Dictionary<string, int> numOccur = new Dictionary<string, int>();
 
-            if (option.Equals("link", StringComparison.OrdinalIgnoreCase) && !string.IsNullOrEmpty(option))
+            if (!string.IsNullOrEmpty(option) && option.Equals("link", StringComparison.OrdinalIgnoreCase))
             {
                 char[] separators = { '|' };
                 string[] words = text.Split(separators, StringSplitOptions.RemoveEmptyEntries);
